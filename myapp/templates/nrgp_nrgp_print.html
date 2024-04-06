@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% csrf_token %}
+<head>
+
+  <style>
+    button {
+      appearance: none;
+      background-color: #2ea44f;
+      border: 1px solid rgba(27, 31, 35, 0.15);
+      border-radius: 6px;
+      box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+      box-sizing: border-box;
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      padding: 6px 16px;
+      position: relative;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    @media print {
+      body * {
+        display: none;
+      }
+
+      #hello,
+      #hello * {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <table border="1px" cellpadding="8px" cellspacing="0" align="center">
+    <!--1.cellpadding - for cell inner space , 2.cellspacing - for cell outer space , 3. align="center" for table alignment-->
+    <tr> <!--1 Row-->
+      <th colspan="5" class="text-primary">EXEMED PHARMACEUTICALS<p style="font-size: 15px;">Plot No.133/1 & 133/2,
+          Selvas Road, GIDC, VAPI. Tel:-91 2606617700</p>
+
+      </th>
+
+
+    </tr>
+    <tr> <!--2 Row-->
+      <th colspan="5">DELIVERY CHALLAN CUM NON RETURNABLE GATE PASS
+
+      </th>
+    </tr>
+
+    <tr> <!--3 Row-->
+      <!-- <td>{{i.nrgp_main_serial}}</td>-->
+      <td colspan="2">N.R.G.P. No:-{{single_data.nrgp_main_serial}}
+
+      </td>
+      <td colspan="4">Date & Time:- {{single_data.date}}
+
+      </td>
+
+
+    </tr>
+    <tr> <!--4 Row-->
+      <td colspan="5">NAME OF THE CONCERN PERSON :- {{single_data.cpname}}
+
+      </td>
+
+    </tr>
+    <tr> <!--5 Row-->
+      <td colspan="5">NAME OF THE DEPARTMENT :- {{single_data.dpname}}
+
+      </td>
+    </tr>
+    <tr> <!--6 Row--> <!-- align="center" for text alignment in row and column also can whole table alignment  -->
+      <td colspan="5">SERVICE PROVIDER NAME:- {{single_data.spname}}
+
+      </td>
+    </tr>
+    <tr> <!--7 Row-->
+      <th>ITEM SR.No.</th>
+      <th>DESCRIPTION</th>
+      <th>UNIT</th>
+      <th>QTY.</th>
+      <th>REMARKS</th>
+      <!-- <td>Science</td>
+        <td>Science</td> -->
+    </tr>
+    {% for i in user_detail %}
+    <tr> <!--8 Row-->
+      <th>{{i.nrgp_serial}}</th>
+      <th>{{i.desc}}</th>
+      <th>{{i.unit}}</th>
+      <th>{{i.qty}}</th>
+      <th>{{i.remarks}}</th>
+    </tr>
+    {% endfor %}
+    <tr> <!--8 Row-->
+      <td colspan="2">Prepared By:-{{single_data.nrgp_created.fname}} {{single_data.nrgp_created.lname}}
+
+      </td>
+      <td colspan="1">Verified By:-{{single_data.nrgp_verifier.fname}} {{single_data.nrgp_verifier.lname}}
+
+      </td>
+      <td colspan="2">Approved By:-{{single_data.nrgp_approver.fname}} {{single_data.nrgp_approver.lname}}
+
+      </td>
+    </tr>
+
+  </table>
+  <button onclick="printingdata()">Print</button>
+</body>
+<script type="text/javascript">
+  // function printingdata() {
+  //   var print_div = document.getElementById("hello");
+  //   var print_area = window.open("");
+  //   // print_area.document.write(print_div.innerHTML);
+  //   print_area.body.innerHTML =
+  //     "<html><head><title></title></head><body>" +
+  //     print_div + "</body>";
+  //   // print_area.document.close();
+  //   // print_area.focus();
+  //   print_area.print();
+  //   // print_area.close();
+  //   // This is the code print a particular div element
+  // }
+
+  function printingdata() {
+    print();
+  }
+</script>
+
+</html>

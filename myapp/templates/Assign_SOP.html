@@ -1,0 +1,219 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+</head>
+
+<body>
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb" class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-12">
+					<h4>
+						<li><a href="{% url 'back' %}">Home</a></li>
+					</h4>
+					<!--<h3 class="breadcrumb-header">Login</h3>
+						<ul class="breadcrumb-tree">
+							<li><a href="#">Home</a></li>-->
+					<!--<li class="active">Login</li>-->
+					</ul>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+
+				<div class="col-md-7">
+					<!-- Billing Details -->
+					<div class="billing-details">
+						<div class="section-title">
+							<h3 class="title">SOP Details</h3>
+						</div>
+						{% if msg %}
+						<b style="color:blue;">{{msg}}</b>
+						{% endif %}
+						<form name="login" method="post" action="{% url 'trn_assign' trn_entrys.id %}">
+							<span id="email_error"></span>
+							<!--<form name="login" method="post" action="{% url 'login' %}">-->
+
+							{% csrf_token %}
+
+							SOP Name : {{trn_entrys.dpname}} <br>
+							SOP Number : {{trn_entrys.cpname}}<br><br>
+							<!-- SOP Version Number : {{rgp_entrys.spname}}<br> -->
+							<!-- Description : {{rgp_entrys.desc}}<br> -->
+							<!-- Mode of Training : {{rgp_entrys.unit}}<br> -->
+							<!-- Quantity : {{rgp_entrys.qty}}<br> -->
+							<!-- Remarks : {{rgp_entrys.remarks}}<br><br> -->
+							<div class="form-group">
+
+								{% for i in user_data %}
+								<input type="checkbox" value="{{i.email}}" name="emp_name[]" multiple> {{i.email}}
+								{{i.fname}} {{i.lname}}
+								<br>
+								<!-- <option>{{i.fname}}</option> -->
+								{% endfor %}
+
+							</div>
+
+
+							<!-- <div class="form-group">
+								<input class="input" type="text" name="sch_date" id="val_surname"
+									placeholder="Enter Schedule Date" required>
+							</div> -->
+
+
+
+							<label for="bdaymonth">Select (month and year):</label>
+							<input type="month" id="bdaymonth" name="sch_date" required>
+							<!-- <input type="submit"> -->
+							<br><br>
+
+							<button type="submit" class="primary-btn order-submit">SOP Assign</button>
+
+							<a onclick=" window.history.back()"><button type="button"
+									class="primary-btn order-submit">Back</button></a>
+
+
+							<br><br>
+
+
+							<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+							<div class="SearchPanel">
+								<input type="text" name="" id="search_user" placeholder="Search">
+								<div class="searchlist" id="searchlist">
+									<div class="alllist">
+										<input type="checkbox" name="checkall" id="all">
+										<label for="all">All</label>
+									</div>
+									<hr>
+									<div class="list">
+										{% for i in user_data %}
+										<input type="checkbox" name="check1" id="c1" class="chkAll"> {{i.email}}
+										{{i.fname}} {{i.lname}}
+										<!-- <label for="c1">checkbox1</label> -->
+										{% endfor %}
+									</div>
+									<div class="list">
+										<input type="checkbox" name="check2" id="c2" class="chkAll">
+										<label for="c2">checkbox2</label>
+									</div>
+									<div class="list">
+										<input type="checkbox" name="check3" id="c3" class="chkAll">
+										<label for="c3">checkbox3</label>
+									</div>
+									<div class="list">
+										<input type="checkbox" name="check4" id="c4" class="chkAll">
+										<label for="c4">checkbox4</label>
+									</div>
+									<div class="list">
+										<input type="checkbox" name="check5" id="c5" class="chkAll">
+										<label for="c5">checkbox5</label>
+									</div>
+								</div>
+							</div>
+
+							<script>
+								$(function () {
+									$("#search_user").on("click", function () {
+										$("#searchlist").toggleClass("searchlist-show")
+									})
+
+									$('#all').click(function () {
+										$('.chkAll').prop('checked', $(this).prop('checked'));
+										updateInput();
+									});
+
+									$('.chkAll').click(function () {
+										if (!$(this).prop('checked')) {
+											$('#all').prop('checked', false);
+										}
+										updateInput();
+									});
+
+									function updateInput() {
+										var selectedItems = [];
+										$('.chkAll:checked').each(function () {
+											selectedItems.push($(this).next('label').text());
+										});
+										$('#search_user').val(selectedItems.join(', '));
+									}
+								})
+							</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						</form>
+
+					</div>
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+
+		<script>
+			$("#email").change(function () {
+				var email = $(this).val();
+
+				$.ajax({
+					url: '/ajax/validate_email/',
+					data: {
+						'email': email
+					},
+					dataType: 'json',
+					success: function (data) {
+						if (!data.is_taken) {
+							document.getElementById("email").style.border = "5px solid red";
+							document.getElementById("email_error").innerHTML = "This Email Id Not Registered";
+						} else {
+							document.getElementById("email").style.border = "5px solid green";
+							document.getElementById("email_error").innerHTML = "";
+						}
+					}
+				});
+			});
+
+		</script>
+
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'header2.html' %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<style>
+		table,
+		th,
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			color: black;
+			font-weight: bold;
+		}
+
+		th,
+		td {
+			padding: 10px;
+		}
+
+		table#alter tr:nth-child(even) {
+			background-color: #eee;
+		}
+
+		table#alter tr:nth-child(odd) {
+			background-color: #fff;
+		}
+
+		table#alter th {
+			color: white;
+			background-color: gray;
+		}
+
+		.table_data {
+			margin-top: 10px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<h1></h1>
+	<div class="petty_cash">NRGP Details</div>
+	<h4>
+		<div class="btn1_99">
+			<li><a href="{% url 'back' %}">Home</a></li>
+		</div>
+		<center style="color:red">{{msg}}</center>
+	</h4>
+
+	<!-- ----------------temp div-------- -->
+	<div class="table_data">
+
+		<table id="alter">
+			<tr>
+				<th>Sno.</th>
+				<th>Concern Person Name</th>
+				<th>Department Name</th>
+				<th>Service Provider Name</th>
+				<th>Description</th>
+				<th>Quantity</th>
+				<th>Remarks</th>
+				<!-- <th>Exit</th> -->
+				<!-- <th>Send Mail</th> -->
+				<th>Verify</th>
+				<th>Verify status</th>
+				<th>Verify Time</th>
+				<th>Approve</th>
+				<th>Approve status</th>
+				<th>Approve Time</th>
+				<th>Print</th>
+			</tr>
+			{% for i in nrgp_entrys %}
+			<form action="{% url 'nrgp_exit' i.id %}" method="post">
+				{% csrf_token %}
+				<tr>
+					<td>{{i.nrgp_serial}}</td>
+					<td> {{i.cpname}}</td>
+					<td>{{i.dpname}} </td>
+					<td>{{i.spname}} </td>
+					<td>{{i.desc}} </td>
+					<td>{{i.qty}} </td>
+					<td>{{i.remarks}} </td>
+					{% if i.nrgp_outward_status%}
+					<td><button type="submit" class="primary-btn order-submit">Exit </button> </td>
+					{% else %}
+					<!-- <td><button type="submit" class="primary-btn order-submit" disabled>Exit </button> </td> -->
+					{% endif %}
+					<!-- <td><a href="{% url 'nrgp_send_email' i.id %}"><button type="button"
+								class="primary-btn order-submit">Send
+								Mail</button></a> </td> -->
+					<td><a href="{% url 'nrgp_send_email_verify' i.id %}"><button type="button"
+								class="primary-btn order-submit">Verify
+								Mail</button></a></td>
+					<td>{{i.nrgp_verify_status}}</td>
+					<td>{{i.nrgp_verify_time}}</td>
+					{% if i.nrgp_verify_status %}
+					<td><a href="{% url 'nrgp_send_email_approve' i.id %}"><button type="button"
+								class="primary-btn order-submit">Approve
+								Mail</button></a></td>
+					{% else %}
+					<td><a href="{% url 'nrgp_send_email_approve' i.id %}"><button type="button"
+								class="primary-btn order-submit" disabled>Approve
+								Mail</button></a></td>
+					{% endif %}
+					<td>{{i.nrgp_approve_status}}</td>
+					<td>{{i.nrgp_approve_time}}</td>
+					<td><a href="{% url 'nrgp_print' i.id %}" target="_blank"><button type="button" class="primary-btn">Print</button></a>
+					</td>
+					<br>
+					<!-- <div><button onClick="window.print()">Print this page</button></div> -->
+
+			</form>
+			{% endfor %}
+			</tr>
+		</table>
+		<!-- ----------------temp div over-------------- -->
+	</div>
+
+
+
+</body>
+
+</html>
+{% endblock %}

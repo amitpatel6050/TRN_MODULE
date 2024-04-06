@@ -1,0 +1,154 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+</head>
+
+<body>
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb" class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-12">
+					<h4>
+						<li><a href="{% url 'back' %}">Home</a></li>
+					</h4>
+					<!--<h3 class="breadcrumb-header">Login</h3>
+						<ul class="breadcrumb-tree">
+							<li><a href="#">Home</a></li>-->
+					<!--<li class="active">Login</li>-->
+					</ul>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+
+				<div class="col-md-7">
+					<!-- Billing Details -->
+					<div class="billing-details">
+						<div class="section-title">
+							<h3 class="title">RGP Details</h3>
+						</div>
+						{% if msg %}
+						<b style="color:blue;">{{msg}}</b>
+						{% endif %}
+						<form name="login" method="post" action="{% url 'send_email' rgp_entrys.id %}">
+							<span id="email_error"></span>
+							<!--<form name="login" method="post" action="{% url 'login' %}">-->
+
+							{% csrf_token %}
+
+							Concern Person Name : {{rgp_entrys.cpname}}<br>
+							Department Name : {{rgp_entrys.dpname}}<br>
+							Service Provider Name : {{rgp_entrys.spname}}<br>
+							Description : {{rgp_entrys.desc}}<br>
+							Unit : {{rgp_entrys.unit}}<br>
+							Quantity : {{rgp_entrys.qty}}<br>
+							Remarks : {{rgp_entrys.remarks}}<br><br>
+							<!--<div class="form-group">
+								<input class="input" type="email" name="email" placeholder="Email" id="email">
+							</div>
+							<div class="form-group">
+								<input class="input" type="password" name="password" placeholder="Password">
+							</div>-->
+
+							<!--<button type="submit" class="primary-btn order-submit">New Visitor Entry</button>-->
+							<!-- <div class="form-group">
+								<input class="input" type="email" name="email" placeholder="Email">
+							</div> -->
+
+							<select name="email">
+								<option>---To E-Mail---</option>
+								<option value="it@exemedpharma.com">IT</option>
+								<option value="adl.egate@exemedpharma.com">ADL</option>
+								<option value="engg.egate@exemedpharma.com">ENGG</option>
+								<option value="hrvapi@exemedpharma.com">HR</option>
+								<option value="vasant.patel@exemedpharma.com">Vasant Patel</option>
+								<option value="pharma.egate@exemedpharma.com">PHARMA</option>
+
+								<option value="qc.egate@exemedpharma.com">QC</option>
+
+								<option value="hsevapi@exemedpharma.com">EOHS</option>
+								<option value="manish.upadhyay@exemedpharma.com">Manish Upadhyay</option>
+								
+								<option value="purchase.vapi@exemedpharma.com">PURCHASE</option>
+
+								<option value="artwork@exemedpharma.com">ARTWORK</option>
+								<option value="warehousevapi@exemedpharma.com">WH</option>
+								<option value="ishwerlal.patel@exemedpharma.com">Ishwerlal Patel</option>
+
+								
+
+								
+								<option value="apivapi@exemedpharma.com">API</option>
+								
+								<option value="dispatch.vapi@exemedpharma.com">DISPATCH</option>
+								
+
+
+							</select>
+							<br><br>
+							<button type="submit" class="primary-btn order-submit">Send MAIL</button>
+
+							<a href="{% url 'back' %}"><button type="button"
+									class="primary-btn order-submit">Back</button></a>
+
+
+						</form>
+
+					</div>
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+
+		<script>
+			$("#email").change(function () {
+				var email = $(this).val();
+
+				$.ajax({
+					url: '/ajax/validate_email/',
+					data: {
+						'email': email
+					},
+					dataType: 'json',
+					success: function (data) {
+						if (!data.is_taken) {
+							document.getElementById("email").style.border = "5px solid red";
+							document.getElementById("email_error").innerHTML = "This Email Id Not Registered";
+						} else {
+							document.getElementById("email").style.border = "5px solid green";
+							document.getElementById("email_error").innerHTML = "";
+						}
+					}
+				});
+			});
+
+		</script>
+
+</body>
+
+</html>
+{% endblock %}

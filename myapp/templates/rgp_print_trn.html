@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+{% csrf_token %}
+
+<head>
+  <style>
+    * {
+      background-color: rgb(156, 199, 240)
+    }
+
+    button {
+      appearance: none;
+      background-color: #2ea44f;
+      border: 1px solid rgba(27, 31, 35, 0.15);
+      border-radius: 6px;
+      box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+      box-sizing: border-box;
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      padding: 6px 16px;
+      position: relative;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      vertical-align: middle;
+      white-space: nowrap;
+      margin-left: 380px;
+      margin-top: 10px;
+    }
+
+    h4 {
+
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- hr tag for horizontal line-->
+
+  <div id="hello">
+    <div class="col-md-6">
+      <strong></strong><br />
+      <div class="table-responsive">
+        <table border="1px" cellpadding="8px" cellspacing="0" align="center">
+          <!--1.cellpadding - for cell inner space , 2.cellspacing - for cell outer space , 3. align="center" for table alignment-->
+          <tr> <!--1 Row-->
+            <th colspan="5" class="text-primary">EXEMED PHARMACEUTICALS<p style="font-size: 15px;">Plot No.133/1 &
+                133/2,
+                Selvas Road, GIDC, VAPI. Tel:-91 2606617700</p>
+
+            </th>
+
+
+          </tr>
+          <tr> <!--2 Row-->
+            <th colspan="5">PERSONNEL TRAINING RECORD FOR SCHEDULE SOP
+
+            </th>
+          </tr>
+          <tr> <!--3 Row-->
+            <td colspan="2">SOP No:- {{user_detail.dpname}}
+
+            </td>
+            <td colspan="3">Date & Time of Training:- {{user_detail.date}}
+
+            </td>
+
+
+          </tr>
+          <tr> <!--4 Row-->
+            <td colspan="5">SOP NAME :- {{user_detail.cpname}}
+
+            </td>
+
+          </tr>
+          <tr> <!--5 Row-->
+            <td colspan="5">SOP REVISION NUMBER :- {{user_detail.spname}}
+
+            </td>
+          </tr>
+          <tr> <!--6 Row--> <!-- align="center" for text alignment in row and column also can whole table alignment  -->
+            <td colspan="5">MODE OF TRAINING:- {{user_detail.unit}}
+
+            </td>
+
+
+
+          </tr>
+          <tr>
+            <!--7 Row-->
+            <!-- <th>SR.No.</th>
+            <th>DESCRIPTION</th>
+            <th>UNIT</th>
+            <th>QTY.</th>
+            <th>REMARKS</th> -->
+            <!-- <td>Science</td>
+                      <td>Science</td> -->
+          </tr>
+          <tr> <!--8 Row-->
+            <!-- <th>1</th>
+            <th>
+              <div style="width: 250px; word-wrap: break-word;">{{user_detail.desc}}</div>
+            </th>
+            <th>{{user_detail.unit}}</th>
+            <th>{{user_detail.qty}}</th>
+            <th>
+              <div style="width: 250px; word-wrap: break-word;">{{user_detail.remarks}}</div>
+            </th> -->
+          </tr>
+
+
+
+          <tr> <!--8 Row-->
+
+            <td colspan="5">
+              Prepared By:-{{user_detail.rgp_created.fname}}
+              {{user_detail.rgp_created.lname}} || Verified By:-{{user_detail.verifier.fname}}
+              {{user_detail.verifier.lname}} || Approved By:-{{user_detail.approver.fname}}
+              {{user_detail.approver.lname}}
+            </td>
+
+            <!-- <td colspan="1">Verified By:-{{user_detail.verifier.fname}} {{user_detail.verifier.lname}}
+            </td>
+            <td colspan="2">Approved By:-{{user_detail.approver.fname}} {{user_detail.approver.lname}}
+          
+            </td> -->
+          </tr>
+        </table>
+
+
+        <h4>--- This is a Computer Generated Gate Pass ---</h4>
+
+      </div>
+    </div>
+  </div>
+
+  <button onclick="printingdata()">Print</button>
+</body>
+<script type="text/javascript">
+  function printingdata() {
+    var print_div = document.getElementById("hello");
+    var print_area = window.open();
+    print_area.document.write(print_div.innerHTML);
+    print_area.document.close();
+    print_area.focus();
+    print_area.print();
+    // print_area.close();
+    // This is the code print a particular div element
+  }
+</script>
+
+</html>

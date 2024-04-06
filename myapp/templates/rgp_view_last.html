@@ -1,0 +1,145 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<style>
+		table,
+		th,
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			color: black;
+			font-weight: bold;
+		}
+
+		th,
+		td {
+			padding: 10px;
+		}
+
+		table#alter tr:nth-child(even) {
+			background-color: #eee;
+		}
+
+		table#alter tr:nth-child(odd) {
+			background-color: #fff;
+		}
+
+		table#alter th {
+			color: white;
+			background-color: gray;
+		}
+
+		.table_data {
+			margin-top: 10px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<h1></h1>
+	<div class="petty_cash">RGP Details</div>
+	<h4>
+		<div class="btn1_99">
+			<li><a href="{% url 'back' %}">Home</a></li>
+		</div>
+		<center style="color:red">{{msg}}</center>
+	</h4>
+
+	<!-- ----------------temp div-------- -->
+	<div class="table_data">
+
+		<table id="alter">
+			<tr>
+				<th>sno.</th>
+				<th>Concern Person Name</th>
+				<th>Department Name</th>
+				<th>Service Provider Name</th>
+				<th>Description</th>
+				<th>Unit</th>
+				<th>Quantity</th>
+				<th>Remarks</th>
+				<th>Exit</th>
+				<!-- <th>Send Mail</th> -->
+				<th>Verify</th>
+				<th>Verify status</th>
+				<th>Verify time</th>
+				<th>Approve</th>
+				<th>Approve status</th>
+				<th>Approve Time</th>
+				<th>Print</th>
+			</tr>
+			{% for i in rgp_entrys %}
+
+
+			<form action="{% url 'rgp_exit' i.id %}" method="post">
+				{% csrf_token %}
+				<tr>
+					<td>{{i.rgp_serial}}</td>
+					<td> {{i.cpname}}</td>
+					<td>{{i.dpname}} </td>
+					<td>{{i.spname}} </td>
+					<td><div style="width: 250px; word-wrap: break-word;">{{i.desc}}</div> </td>
+					<td>{{i.unit}} </td>
+					<td>{{i.qty}} </td>
+
+					<td><div style="width: 250px; word-wrap: break-word;">{{i.remarks}}</div> </td>
+					{% if i.inward_status%}
+					<td><button type="submit" class="primary-btn order-submit">Exit </button> </td>
+					{% else %}
+					<td><button type="submit" class="primary-btn order-submit" disabled>Exit </button> </td>
+					{% endif %}
+					<!-- <td><a href="{% url 'send_email' i.id %}"><button type="button"
+								class="primary-btn order-submit">Send
+								Mail</button></a> </td> -->
+					{% if i.verify_status %}
+					<td><a href="{% url 'send_email_verify' i.id %}"><button type="button"
+								class="primary-btn order-submit" disabled>Verify Mail</button></a></td>
+					{% else%}
+					<td><a href="{% url 'send_email_verify' i.id %}"><button type="button"
+								class="primary-btn order-submit">Verify
+								Mail</button></a></td>
+					{% endif %}
+					<td>{{i.verify_status}}</td>
+					<td>{{i.rgp_verify_time}}</td>
+					
+					{% if i.approve_status%}
+					<td><a href="{% url 'send_email_approve' i.id %}"><button type="button"
+								class="primary-btn order-submit" disabled>Approve
+								Mail</button></a></td>
+					{% else %}
+					{% if i.verify_status %}
+					<td><a href="{% url 'send_email_approve' i.id %}"><button type="button"
+								class="primary-btn order-submit">Approve Mail</button></a></td>
+					{% else %}
+					<td><a href="{% url 'send_email_approve' i.id %}"><button type="button"
+								class="primary-btn order-submit" disabled>Approve
+								Mail</button></a></td>
+					{% endif %}
+					{% endif %}
+
+
+					<td>{{i.approve_status}}</td>
+					<td>{{i.rgp_approve_time}}</td>
+
+					<td><a href="{% url 'rgp_print' i.id %}" target="_blank"><button type="button"
+								class="primary-btn">Print</button></a></td>
+			</form>
+			{% endfor %}
+			</tr>
+		</table>
+		<!-- ----------------temp div over-------------- -->
+	</div>
+
+
+
+</body>
+
+</html>
+{% endblock %}

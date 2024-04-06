@@ -1,0 +1,395 @@
+{% extends 'header6.html' %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<style>
+		table,
+		th,
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			color: black;
+			font-weight: bold;
+		}
+
+		th,
+		td {
+			padding: 10px;
+		}
+
+		table#alter tr:nth-child(even) {
+			background-color: #eee;
+		}
+
+		table#alter tr:nth-child(odd) {
+			background-color: #fff;
+		}
+
+		table#alter th {
+			color: white;
+			background-color: gray;
+		}
+
+		.table_data {
+			margin-top: 10px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<h1></h1>
+	<div class="petty_cash">SOP Details</div>
+	<h4>
+		<div class="btn1_99">
+			<li><a href="{% url 'back' %}">Home</a></li>
+		</div>
+		<center style="color:red">{{msg}}</center>
+	</h4>
+
+	<!-- ----------------temp div-------- -->
+	<div class="table_data">
+
+		<table id="alter">
+
+
+
+
+
+
+			<tr>
+				<!-- <th>sno.</th> -->
+				<th>SOP Name</th>
+				<th>SOP NUMBER</th>
+				<th>Assigned Date</th>
+				<th>Assigned Employee</th>
+
+				<th>SOP Assign </th>
+				<th>View Training Matrix</th>
+				<th>View and Attend SOP </th>
+				<!-- <th>Service Provider Name</th>
+				<th>Description</th>
+				<th>Unit</th>
+				<th>Quantity</th> -->
+				<!-- <th>Remarks</th> -->
+				<th>Edit SOP</th>
+				<th>Start Training</th>
+				<th>End Training</th>
+				<th>Training Evaluation</th>
+
+
+				<!-- <th>Send Mail</th> -->
+				<th>SOP Verify</th>
+				<th>SOP Verify status</th>
+				<th>SOP Verify Date & time</th>
+				<th>SOP Approve</th>
+				<th>SOP Approve status</th>
+				<th>SOP Approve date & Time</th>
+				<th>Date of Training</th>
+				<th>SOP Version No.</th>
+				<th>Mode of Training</th>
+				<th>Type of Evaluation</th>
+				<th>Name of Trainer</th>
+				<th>Trainer's Department</th>
+				<th>Trainer's Designation</th>
+				<th>Vanue</th>
+				<!-- <th>Type of Training</th> -->
+				<!-- <th>Mode of Training</th> -->
+				<!-- <th>Type of Evaluation</th> -->
+				<th>Trainee's Name</th>
+				<!-- <th>Trainee's Employee Code</th> -->
+				<th>Training Start Date & Time</th>
+				<th>Training End Date & Time </th>
+				<!-- <th>Trainer's Name</th> -->
+				<!-- <th>Trainer's Attendance Records</th> -->
+				<th>HOD / Designee's Name</th>
+				<th>Print</th>
+				<th>SOP Exit</th>
+
+
+
+
+			</tr>
+			<!-- <tr>{{all_data}}</tr> -->
+			{% for i,user_data in all_data %}
+			<!-- <tr>{{i}}</tr>
+			<tr>{{user_data}}</tr> -->
+			<form action="#" method="post"></form>
+
+			{% csrf_token %}
+			<tr>
+				<!-- <td>{{i.rgp_serial}}</td> -->
+				<td>{{i.dpname}}
+				</td>
+				<td>{{i.cpname}} </td>
+
+
+
+				<td>{{i.sch_date}} </td>
+				<td>
+					{% for j in user_data %}
+					{{j.email}}- {{j.fname}} {{j.lname}} ----
+					{% endfor %}
+				</td>
+
+				<!-- <td>{{i.spname}} </td> -->
+				<!-- <td>
+						<div style="width: 250px; word-wrap: break-word;">{{i.desc}}</div>
+					</td>
+					<td>{{i.unit}} </td>
+					<td>{{i.qty}} </td>
+
+					<td>
+						<div style="width: 250px; word-wrap: break-word;">{{i.remarks}}</div>
+					</td> -->
+
+
+				<!-- {% if i.verify_status %}
+
+					<td><a href="{% url 'send_email_verify' i.id %}"><button type="button"
+								class="primary-btn order-submit" disabled>Assign
+								SOP</button></a></td>
+
+					{% else%}
+					<td><a href="{% url 'send_email_verify' i.id %}"><button type="button"
+								class="primary-btn order-submit">Assign
+								SOP</button></a></td> -->
+				<!-- {% endif %} -->
+
+
+				<!-- <td><a href="{% url 'trn_assign' i.id %}"><button type="button" class="primary-btn order-submit">Assign
+							SOP</button></a></td> -->
+
+				{% if i.trn_asgn_status %}
+				<td><a href="{% url 'trn_assign' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>Assign
+							SOP
+						</button></a></td>
+				{% else %}
+				<td><a href="{% url 'trn_assign' i.id %}"><button type="button" class="primary-btn order-submit">Assign
+							SOP
+						</button></a></td>
+				{% endif %}
+
+				<td><a href="{% url 'view_matrix' i.id %}" target="_blank"><button type="button"
+							class="primary-btn">View
+							Matrix</button></a>
+				</td>
+
+
+
+				{% if i.trn_attend_status %}
+				<td><a href="{% url 'trn_attend' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>Attend / view
+						</button></a></td>
+				{% else %}
+				{% if i.trn_asgn_status %}
+				<td><a href="{% url 'trn_attend' i.id %}"><button type="button" class="primary-btn order-submit">Attend
+							/
+							view
+						</button></a></td>
+				{% else %}
+				<td><a href="{% url 'trn_attend' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>Attend / view
+						</button></a></td>
+				{% endif %}
+				{% endif %}
+
+
+
+
+
+
+				{% if i.trn_start_status %}
+				<td><a href="{% url 'trn_edit' i.id %}"><button type="button" class="primary-btn order-submit" disabled>
+							Edit
+						</button></a></td>
+				{% else%}
+
+				<td><a href="{% url 'trn_edit' i.id %}"><button type="button" class="primary-btn order-submit">
+							Edit
+						</button></a></td>
+
+				{% endif %}
+
+
+
+
+				{% if i.trn_start_status %}
+				<td><a href="{% url 'trn_start' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>
+							Start Training
+						</button></a></td>
+				{% else%}
+				{% if i.trn_attend_status %}
+				<td><a href="{% url 'trn_start' i.id %}"><button type="button" class="primary-btn order-submit">
+							Start Training
+						</button></a></td>
+				{% else%}
+				<td><a href="{% url 'trn_start' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>
+							Start Training
+						</button></a></td>
+				{% endif %}
+				{% endif %}
+
+
+				{% if i.trn_end_status %}
+				<td><a href="{% url 'trn_end' i.id %}"><button type="button" class="primary-btn order-submit" disabled>
+							End Training
+						</button></a></td>
+				{% else%}
+				{% if i.trn_start_status %}
+				<td><a href="{% url 'trn_end' i.id %}"><button type="button" class="primary-btn order-submit">
+							End Training
+						</button></a></td>
+				{% else%}
+				<td><a href="{% url 'trn_end' i.id %}"><button type="button" class="primary-btn order-submit" disabled>
+							End Training
+						</button></a></td>
+				{% endif %}
+				{% endif %}
+
+
+				{% if i.trn_evalu_status %}
+				<td><a href="{% url 'trn_evaluation' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>
+							Training
+							Evaluation
+						</button></a></td>
+				{% else%}
+				{% if i.trn_end_status %}
+
+				<td><a href="{% url 'trn_evaluation' i.id %}"><button type="button" class="primary-btn order-submit">
+							Training
+							Evaluation
+						</button></a></td>
+				{% else%}
+
+				<td><a href="{% url 'trn_evaluation' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>
+							Training
+							Evaluation
+						</button></a></td>
+				{% endif %}
+				{% endif %}
+
+
+				<!-- 
+				<td><a href="{% url 'trn_evaluation' i.id %}"><button type="button"
+							class="primary-btn order-submit">Training
+							Evaluation</button></a></td> -->
+
+
+
+				<!-- <td><a href="{% url 'send_email' i.id %}"><button type="button"
+								class="primary-btn order-submit">Send
+								Mail</button></a> </td> -->
+				{% if i.verify_status %}
+				<td><a href="{% url 'send_email_verify' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>Verify Mail</button></a></td>
+				{% else%}
+				{% if i.trn_evalu_status %}
+				<td><a href="{% url 'send_email_verify' i.id %}"><button type="button"
+							class="primary-btn order-submit">Verify
+							Mail</button></a></td>
+
+				{% else%}
+				<td><a href="{% url 'send_email_verify' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>Verify
+							Mail</button></a></td>
+
+				{% endif %}
+				{% endif %}
+				<td>{{i.verify_status}}</td>
+				<td>{{i.rgp_verify_time |date:"d-m-Y H:i:s"}}</td>
+
+				{% if i.approve_status%}
+				<td><a href="{% url 'send_email_approve' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>Approve
+							Mail</button></a></td>
+				{% else %}
+				{% if i.verify_status %}
+				<td><a href="{% url 'send_email_approve' i.id %}"><button type="button"
+							class="primary-btn order-submit">Approve Mail</button></a></td>
+				{% else %}
+				<td><a href="{% url 'send_email_approve' i.id %}"><button type="button" class="primary-btn order-submit"
+							disabled>Approve
+							Mail</button></a></td>
+				{% endif %}
+				{% endif %}
+
+
+				<td>{{i.approve_status}}</td>
+				<td>{{i.trn_approve_time |date:"d-m-Y H:i:s"}}</td>
+
+
+				<td>{{i.trn_attend_time|date:"d-m-Y H:i:s"}} </td>
+				<td>{{i.sop_ver}} </td>
+				<td>{{i.mode_trn}} </td>
+				<td>{{i.viva_voice}} </td>
+				<td>{{i.trnr_name}} </td>
+				<td>{{i.trnr_dept}} </td>
+				<!-- <td>{{i.dpname}} </td> -->
+				<td>{{i.trnr_desn}} </td>
+				<td>{{i.vanue}} </td>
+				<td>{{i.emp_name_assign}} </td>
+				<!-- <td>
+					{% for j in user_data %}
+					{{j.email}}- {{j.fname}} {{j.iname}}
+					{% endfor %}
+				</td> -->
+				<!-- <td>{{i.dpname}} </td> -->
+				<!-- <td>{{i.dpname}} </td> -->
+				<td>{{i.trn_start_time |date:"d-m-Y H:i:s"}} </td>
+				<td>{{i.trn_end_time |date:"d-m-Y H:i:s"}} </td>
+
+				<!-- <td>{{i.dpname}} </td> -->
+				<!-- <td>{{i.dpname}} </td> -->
+				<td>{{i.approver.fname}} {{i.approver.lname}}</td>
+
+
+
+				<td><a href="{% url 'trn_print' i.id %}" target="_blank"><button type="button"
+							class="primary-btn">Print</button></a></td>
+
+				<!-- 
+				<td><a href="{% url 'trn_exit' i.id %}"><button type="button" class="primary-btn order-submit">SOP Exit
+						</button></a></td> -->
+
+				{% if i.approve_status%}
+				<td><a href="{% url 'trn_exit' i.id %}"> <button type="button" class="primary-btn order-submit ">Exit
+						</button></a></td>
+				{% else %}
+				<td><a href="{% url 'trn_exit' i.id %}"> <button type="button" class="primary-btn order-submit "
+							disabled>Exit
+						</button></a></td>
+				{% endif %}
+				<!-- 
+				{% if i.approve_status%}
+				<td><button type=" submit" class="primary-btn order-submit">SOP Exit </button> </td>
+				{% else %}
+				<td><button type="submit" class="primary-btn order-submit" disabled> SOP Exit </button> </td>
+				{% endif %} -->
+
+
+
+
+				</form>
+				{% endfor %}
+			</tr>
+		</table>
+		<!-- ----------------temp div over-------------- -->
+	</div>
+
+
+
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+{% csrf_token %}
+
+<head>
+  <style>
+    * {
+      background-color: rgb(156, 199, 240)
+    }
+
+    button {
+      appearance: none;
+      background-color: #2ea44f;
+      border: 1px solid rgba(27, 31, 35, 0.15);
+      border-radius: 6px;
+      box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+      box-sizing: border-box;
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      padding: 6px 16px;
+      position: relative;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      vertical-align: middle;
+      white-space: nowrap;
+      margin-left: 380px;
+      margin-top: 10px;
+    }
+
+    h4 {
+
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- hr tag for horizontal line-->
+
+  <div id="hello">
+    <div class="col-md-6">
+      <strong></strong><br />
+      <div class="table-responsive">
+        <table border="1px" cellpadding="12px" cellspacing="0" align="center">
+          <!--1.cellpadding - for cell inner space , 2.cellspacing - for cell outer space , 3. align="center" for table alignment-->
+          <tr> <!--1 Row-->
+            <th colspan="16" class="text-primary">Annexure - II <br>EXEMED PHARMACEUTICALS<p style="font-size: 15px;">
+                TRAINING ATTENDANCE RECORD </p>
+
+            </th>
+
+
+          </tr>
+          <tr>
+
+            <td colspan="16">Topic of Training Program : {{user_detail.cpname}}
+
+            </td>
+          </tr>
+
+          <!-- <tr>
+
+            <td colspan="16">Name of Department : {{user_detail.rgp_created.department}}
+
+            </td>
+          </tr> -->
+
+          <tr>
+
+            <td colspan="16">Name of Trainee's : {{user_detail.emp_name}}
+
+            </td>
+          </tr>
+          <!-- <tr>
+            
+            <td colspan="14">Name of Person : {{user_detail.rgp_created.fname}}{{user_detail.rgp_created.lname}}
+
+            </td>
+          </tr> -->
+
+          <!-- <tr>
+            
+            <td colspan="14">Employee Code / Login ID: {{user_detail.rgp_created.email}}
+
+            </td>
+          </tr> -->
+
+
+          <tr>
+            <th>SOP No.</th>
+            <th>SOP Revision No.</th>
+            <th>Trainer Name</th>
+            <th>Trainer's Department</th>
+            <th>Trainer's Designation</th>
+            <th>Date of Training</th>
+            <th>Training Start Time</th>
+            <!-- <th>Trainees's Employee code</th> -->
+            <th>Training End Time</th>
+
+            <th>Vanue</th>
+            <!-- <th>Trainer's Employee code</th> -->
+            <th>Mode of Training</th>
+
+
+            <!-- <th>Type of Training</th> -->
+            <th>Type of Evaluation</th>
+            <!-- <th>Training Assign Date</th> -->
+            <th>HOD/Designee's Name</th>
+
+          </tr>
+
+
+          <tr>
+            <th>{{user_detail.dpname}}</th>
+            <th>{{user_detail.sop_ver}}</th>
+            <th>{{user_detail.trnr_name}}</th>
+            <th>{{user_detail.trnr_dept}}</th>
+            <th>{{user_detail.trnr_desn}}</th>
+            <th>{{user_detail.unsd_assign_time |date:"d-m-Y H:i:s"}}</th>
+            <th>{{user_detail.trn_start_time |date:"d-m-Y H:i:s"}}</th>
+            <th>{{user_detail.trn_end_time |date:"d-m-Y H:i:s"}}</th>
+            <th>{{user_detail.vanue}}
+            </th>
+            <th>{{user_detail.mode_trn}}
+              <!-- </th>
+            <th>{{user_detail.type_trn}}
+            </th> -->
+            <th>{{user_detail.viva_voice}}
+            </th>
+            <!-- <th>{{user_detail.sch_date}}
+            </th> -->
+            <th>{{user_detail.unsd_approver.fname}}
+              {{user_detail.unsd_approver.lname}}</th>
+            <!-- <th>{{user_detail.approver.fname}}
+              {{user_detail.approver.lname}}</th>
+            <th>{{user_detail.approver.fname}}
+              {{user_detail.approver.lname}}</th> -->
+
+          </tr>
+
+
+
+        </table>
+
+
+        <h4>--- This is a Computer Generated Training Records ---</h4>
+        <h4>QA-003F2-04</h4>
+      </div>
+    </div>
+  </div>
+
+  <button onclick="printingdata()">Print</button>
+</body>
+<script type="text/javascript">
+  function printingdata() {
+    var print_div = document.getElementById("hello");
+    var print_area = window.open();
+    print_area.document.write(print_div.innerHTML);
+    print_area.document.close();
+    print_area.focus();
+    print_area.print();
+    // print_area.close();
+    // This is the code print a particular div element
+  }
+</script>
+
+</html>

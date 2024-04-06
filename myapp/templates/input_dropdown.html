@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input[type="text"] {
+            height: 30px;
+            width: 96%;
+            padding: 5px;
+            font-size: 20px;
+            border: 1px solid gray;
+        }
+
+        input[type="text"]:focus-visible {
+            outline: none;
+        }
+
+        .SearchPanel {
+            width: 400px;
+            padding: 20px;
+        }
+
+        .SearchPanel .searchlist {
+            width: 100%;
+            box-shadow: 0px 0px 5px rgb(202, 202, 202);
+            margin-top: 2px;
+            display: none;
+        }
+
+        .SearchPanel .searchlist-show {
+            display: block;
+        }
+
+        .SearchPanel .list,
+        .alllist {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <div class="SearchPanel">
+        <input type="text" name="" id="search_user" placeholder="Search">
+        <div class="searchlist" id="searchlist">
+            <div class="alllist">
+                <input type="checkbox" name="checkall" id="all">
+                <label for="all">All</label>
+            </div>
+            <hr>
+            <div class="list">
+                <input type="checkbox" name="check1" id="c1" class="chkAll">
+                <label for="c1">checkbox1</label>
+            </div>
+            <div class="list">
+                <input type="checkbox" name="check2" id="c2" class="chkAll">
+                <label for="c2">checkbox2</label>
+            </div>
+            <div class="list">
+                <input type="checkbox" name="check3" id="c3" class="chkAll">
+                <label for="c3">checkbox3</label>
+            </div>
+            <div class="list">
+                <input type="checkbox" name="check4" id="c4" class="chkAll">
+                <label for="c4">checkbox4</label>
+            </div>
+            <div class="list">
+                <input type="checkbox" name="check5" id="c5" class="chkAll">
+                <label for="c5">checkbox5</label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#search_user").on("click", function () {
+                $("#searchlist").toggleClass("searchlist-show")
+            })
+
+            $('#all').click(function () {
+                $('.chkAll').prop('checked', $(this).prop('checked'));
+                updateInput();
+            });
+
+            $('.chkAll').click(function () {
+                if (!$(this).prop('checked')) {
+                    $('#all').prop('checked', false);
+                }
+                updateInput();
+            });
+
+            function updateInput() {
+                var selectedItems = [];
+                $('.chkAll:checked').each(function () {
+                    selectedItems.push($(this).next('label').text());
+                });
+                $('#search_user').val(selectedItems.join(', '));
+            }
+        })
+    </script>
+</body>
+
+</html>
