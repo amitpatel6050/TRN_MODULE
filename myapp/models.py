@@ -51,6 +51,20 @@ class Sop_master(models.Model):
         return self.sop_name+" "+self.sop_no
 
 
+from django.db import models
+
+class PunchData(models.Model):
+    email = models.CharField(max_length=100)
+    emp_code = models.CharField(max_length=45, null=True, default=None)
+    in_time = models.DateTimeField(null=True, default=None)
+    out_date = models.DateTimeField(null=True, default=None)
+
+    class Meta:
+        db_table = 'punch_data'
+
+
+
+
 class Trn_entry(models.Model):
     # rgp_serial = models.CharField(max_length=20, null=True)
     trn_created = models.ForeignKey(

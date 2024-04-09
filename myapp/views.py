@@ -5,8 +5,11 @@ from django.http import HttpResponse
 
 
 from .forms import Trn_entryForm
+from django.db.models import Q
+
+
 from .forms import Unsd_entryForm
-from .models import Trn_entry
+from .models import Trn_entry,PunchData
 from .models import Unsd_entry
 from .models import Sop_master
 
@@ -221,6 +224,7 @@ def new_password(request):
         msg = "New Password & Confirm New Password Does Not Matched"
         return render(request, 'new_password.html', {'email': email, 'msg': msg})
 
+from itertools import zip_longest
 
 def trn_view(request):
     trn_entrys = Trn_entry.objects.filter(
@@ -230,16 +234,21 @@ def trn_view(request):
     # print("User_data",user_data)
     # print(trn_entrys)
     user_data_list = []
+    punch_data_list = []
     for trn_entry in trn_entrys:
         if  trn_entry.emp_name != None:
             email_list = trn_entry.emp_name.split(",")
             user_data = User_trn.objects.filter(email__in=email_list)
             user_data_list.append(user_data)
+
+            punch_data = PunchData.objects.filter(Q(email__in=email_list) & Q(out_date__isnull=False)).order_by("-out_date")
+            punch_data_list.append(punch_data)
         else:
             # user_data_list.append([])
             user_data_list.append(User_trn.objects.none())
+            punch_data_list.append(PunchData.objects.none())
     # print("cjkdhjkcd",user_data_list)
-    all_data=zip(trn_entrys,user_data_list)
+    all_data=zip_longest(trn_entrys, user_data_list, punch_data_list)
     # print(dict(all_data))
     return render(request, 'trn_view.html', {'trn_entrys': trn_entrys,"all_data":all_data})
 

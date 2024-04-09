@@ -6,6 +6,11 @@ class Trn_entryResource(resources.ModelResource):
     class Meta:
         model = Trn_entry
 
+
+class PunchDataResource(resources.ModelResource):
+    class Meta:
+        model = PunchData        
+
 class Unsd_entryResource(resources.ModelResource):
     class Meta:
         model = Unsd_entry

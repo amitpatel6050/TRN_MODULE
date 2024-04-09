@@ -116,7 +116,7 @@
 
 			</tr>
 			<!-- <tr>{{all_data}}</tr> -->
-			{% for i,user_data in all_data %}
+			{% for i,user_data, punch_data in all_data %}
 			<!-- <tr>{{i}}</tr>
 			<tr>{{user_data}}</tr> -->
 			<form action="#" method="post"></form>
@@ -346,9 +346,13 @@
 				</td> -->
 				<!-- <td>{{i.dpname}} </td> -->
 				<!-- <td>{{i.dpname}} </td> -->
-				<td>{{i.trn_start_time |date:"d-m-Y H:i:s"}} </td>
-				<td>{{i.trn_end_time |date:"d-m-Y H:i:s"}} </td>
-
+				<!-- <td>{{i.trn_start_time |date:"d-m-Y H:i:s"}} </td>
+				<td>{{i.trn_end_time |date:"d-m-Y H:i:s"}} </td> -->
+				{% for user, punch in user_data %}
+				<!-- Render in-time and out-time -->
+				<td>{{ punch.in_time|date:"d-m-Y H:i:s" if punch_data else "" }}</td>
+				<td>{{ punch.out_date|date:"d-m-Y H:i:s" if punch_data else "" }}</td>
+				{% endfor %}
 				<!-- <td>{{i.dpname}} </td> -->
 				<!-- <td>{{i.dpname}} </td> -->
 				<td>{{i.approver.fname}} {{i.approver.lname}}</td>
