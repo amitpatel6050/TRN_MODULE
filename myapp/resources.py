@@ -23,3 +23,15 @@ class Sop_masterResource(resources.ModelResource):
     class Meta:
         model = Sop_master
 
+class atteninfoResource(resources.ModelResource):
+    class Meta:
+        model = atteninfo
+
+class device_logsResource(resources.ModelResource):
+    class Meta:
+        model = device_logs
+
+class devicelistResource(resources.ModelResource):
+    class Meta:
+        model = devicelist
+

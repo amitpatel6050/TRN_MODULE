@@ -62,6 +62,60 @@ class PunchData(models.Model):
     class Meta:
         db_table = 'punch_data'
 
+from django.db import models
+
+class atteninfo(models.Model):
+    AttenID = models.CharField(max_length=20)
+    empcode = models.CharField(max_length=20)
+    intime = models.DateField()
+    outtime = models.DateField()
+    
+
+  
+    def __str__(self):
+        return self.AttenID
+    
+
+from django.db import models
+
+class device_logs(models.Model):
+    devicelogsid = models.CharField(max_length=20)
+    empcode = models.CharField(max_length=20)
+    logdatetime = models.DateField()
+    direction_type = models.CharField(max_length=20)
+    trn_flag = models.CharField(max_length=20)
+    
+    
+
+   
+    def __str__(self):
+        return self.devicelogsid
+
+
+from django.db import models
+
+class devicelist(models.Model):
+    # ID_device = models.CharField(max_length=20)
+    Device_name = models.CharField(max_length=20)
+    IPAddress = models.CharField(max_length=20)
+    Logs = models.CharField(max_length=20)
+    direction_type = models.CharField(max_length=20)
+    # class Meta:
+    #     # Define custom table name if needed
+    #     db_table = 'device_logs'
+
+        # Define custom primary key field
+        # Here we explicitly set the primary key to 'id' and 
+        # tell Django not to automatically add its own primary key field
+        # This is done to avoid conflicts
+        # primary_key = models.AutoField(primary_key=True, db_column='id')
+    
+
+    def __str__(self):
+        return self.Device_name
+
+
+
 
 
 
