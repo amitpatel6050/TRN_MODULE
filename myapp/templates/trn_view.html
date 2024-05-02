@@ -78,8 +78,8 @@
 				<th>Quantity</th> -->
 				<!-- <th>Remarks</th> -->
 				<th>Edit SOP</th>
-				<th>Start Training</th>
-				<th>End Training</th>
+				<!-- <th>Start Training</th>
+				<th>End Training</th> -->
 				<th>Training Evaluation</th>
 
 
@@ -116,7 +116,7 @@
 
 			</tr>
 			<!-- <tr>{{all_data}}</tr> -->
-			{% for i,user_data, punch_data in all_data %}
+			{% for i,user_data in all_data %}
 			<!-- <tr>{{i}}</tr>
 			<tr>{{user_data}}</tr> -->
 			<form action="#" method="post"></form>
@@ -219,7 +219,7 @@
 
 
 
-
+				<!-- 
 				{% if i.trn_start_status %}
 				<td><a href="{% url 'trn_start' i.id %}"><button type="button" class="primary-btn order-submit"
 							disabled>
@@ -236,9 +236,9 @@
 							Start Training
 						</button></a></td>
 				{% endif %}
-				{% endif %}
+				{% endif %} -->
 
-
+				<!-- 
 				{% if i.trn_end_status %}
 				<td><a href="{% url 'trn_end' i.id %}"><button type="button" class="primary-btn order-submit" disabled>
 							End Training
@@ -253,7 +253,7 @@
 							End Training
 						</button></a></td>
 				{% endif %}
-				{% endif %}
+				{% endif %} -->
 
 
 				{% if i.trn_evalu_status %}
@@ -263,7 +263,7 @@
 							Evaluation
 						</button></a></td>
 				{% else%}
-				{% if i.trn_end_status %}
+				{% if i.trn_attend_status %}
 
 				<td><a href="{% url 'trn_evaluation' i.id %}"><button type="button" class="primary-btn order-submit">
 							Training
@@ -346,15 +346,9 @@
 				</td> -->
 				<!-- <td>{{i.dpname}} </td> -->
 				<!-- <td>{{i.dpname}} </td> -->
-				<!-- <td>{{i.trn_start_time |date:"d-m-Y H:i:s"}} </td>
-				<td>{{i.trn_end_time |date:"d-m-Y H:i:s"}} </td> -->
-				{% for user, punch in user_data %}
-				<!-- Render in-time and out-time -->
-				<td>{{ punch.in_time|date:"d-m-Y H:i:s" if punch_data else "" }}</td>
-				<td>{{ punch.out_date|date:"d-m-Y H:i:s" if punch_data else "" }}</td>
-				{% endfor %}
-				<!-- <td>{{i.dpname}} </td> -->
-				<!-- <td>{{i.dpname}} </td> -->
+				<td>{{i.trn_start_time |date:"d-m-Y H:i:s"}} </td>
+				<td>{{i.trn_end_time |date:"d-m-Y H:i:s"}} </td>
+
 				<td>{{i.approver.fname}} {{i.approver.lname}}</td>
 
 

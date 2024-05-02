@@ -77,8 +77,8 @@
 				<!-- <th>Remarks</th> -->
 				<th>Edit SOP</th>
 
-				<th>Start Training</th>
-				<th>End Training</th>
+				<!-- <th>Start Training</th>
+				<th>End Training</th> -->
 				<th>Training Evaluation</th>
 
 
@@ -186,7 +186,7 @@
 
 
 
-
+				<!-- 
 				{% if i.unsd_start_status %}
 				<td><a href="{% url 'unsd_start' i.id %}"><button type="button" class="primary-btn order-submit"
 							disabled>
@@ -224,7 +224,7 @@
 						</button></a></td>
 
 				{% endif %}
-				{% endif %}
+				{% endif %} -->
 
 
 				{% if i.unsd_evalu_status %}
@@ -232,7 +232,7 @@
 							disabled>Training
 							Evaluation</button></a></td>
 				{% else%}
-				{% if i.unsd_end_status %}
+				{% if i.unsd_asgn_status %}
 				<td><a href="{% url 'unsd_evaluation' i.id %}"><button type="button"
 							class="primary-btn order-submit">Training
 							Evaluation</button></a></td>

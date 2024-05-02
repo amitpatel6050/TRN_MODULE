@@ -248,7 +248,7 @@ def trn_view(request):
             user_data_list.append(User_trn.objects.none())
             punch_data_list.append(PunchData.objects.none())
     # print("cjkdhjkcd",user_data_list)
-    all_data=zip_longest(trn_entrys, user_data_list, punch_data_list)
+    all_data=zip_longest(trn_entrys, user_data_list)
     # print(dict(all_data))
     return render(request, 'trn_view.html', {'trn_entrys': trn_entrys,"all_data":all_data})
 
@@ -1283,7 +1283,7 @@ def sop_in(request):
         
          Sop_master.objects.create(
 
-                # trn_created=user,
+                trn_created=user,
                 sop_name=request.POST['sop_name'],
                 sop_no=request.POST['sop_no'],
                 # sop_name=request.POST['sop_name'],
@@ -1291,7 +1291,37 @@ def sop_in(request):
                
             )
          msg = "new added"
-         return render(request, 'sop_entry.html', {'msg': msg})
+         return render(request, 'sop_entry_new.html', {'msg': msg})
      else:
         msg = ""
-        return render(request, 'sop_entry.html', {'msg': msg})
+        return render(request, 'sop_entry_new.html', {'msg': msg})
+     
+def sop_search(request):
+	if request.method=="POST":
+		try:
+			trn_entrys=Trn_entry.objects.get(cpname=request.POST['cpname'])
+			#signups=Signup.objects.all()
+			return render(request,'sop_re_entry.html',{'trn_entrys':trn_entrys})
+		except:
+			msg="SOP Number not register"
+			return render(request,'sop_entry_new.html',{'msg':msg})
+	else:
+		return render(request,'sop_entry_new.html')
+    
+
+def sop_create(request , pk):
+    if request.method == "POST":
+        trn_entrys = Trn_entry.objects.get(id=pk)
+        user = User_trn.objects.get(email=request.session['email'])
+        trn_entrys.trn_sender = user
+        
+       
+        
+        # trn_entrys.current_status = Entry
+        trn_entrys.sop_create_time = timezone.now()
+        trn_entrys.save()
+        msg = "Training created successfully"
+        return render(request, 'sop_re_entry.html', {'trn_entrys': trn_entrys, 'msg': msg})
+    else:
+        
+        return render(request, 'sop_re_entry.html', {'trn_entrys': trn_entrys})

@@ -81,6 +81,8 @@ urlpatterns = [
       path('unsd_written/', views.unsd_written, name='unsd_written'),
    path('view_matrix/<int:pk>', views.view_matrix, name='view_matrix'),
    path('sop_in/', views.sop_in, name='sop_in'),
+   path('sop_search/',views.sop_search,name='sop_search'),
+   path('sop_create/<int:pk>', views.sop_create, name='sop_create'),
 
 
 ]

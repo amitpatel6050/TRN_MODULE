@@ -125,6 +125,7 @@ class Trn_entry(models.Model):
         User_trn, on_delete=models.CASCADE, null=True)
     current_status = models.CharField(max_length=10, default="Entry")
     cpname = models.CharField(max_length=100)
+    sop_create_time = models.DateTimeField( null=True)
     dpname = models.CharField(max_length=100)
     emp_name = models.CharField(max_length=100, null=True)
     emp_name_assign = models.CharField(max_length=100, null=True)

@@ -316,53 +316,6 @@
 	});
 </script>
 
-
-
-
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Auto Complete Search</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-
-<body>
-
-	<input type="text" id="searchInput" placeholder="Type your search query..." multiple> {{i.email}}
-	{{i.fname}} {{i.lname}}
-	<ul id="searchResults"></ul>
-
-	<script>
-		$(document).ready(function () {
-			$('#searchInput').keyup(function () {
-				var query = $(this).val();
-				if (query.length > 0) {
-					$.ajax({
-						url: '/autocomplete/',
-						method: 'GET',
-						data: { 'query': query },
-						success: function (data) {
-							$('#searchResults').empty();
-							data.forEach(function (result) {
-								$('#searchResults').append('<li>' + result + '</li>');
-							});
-						}
-					});
-				} else {
-					$('#searchResults').empty();
-				}
-			});
-		});
-	</script>
-	<br><br>
-</body>
-
-</html>
-
-
-
-
 </body>
 
 </html>
